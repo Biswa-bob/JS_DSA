@@ -67,13 +67,50 @@ class SinglyLinkedList{
         let newNode = new Node(val)
         if(!this.head){
             this.head = newNode;
-            this.tail = neNode;
-        }
+            this.tail = newNode;
+        }else{
             newNode.next = this.head;
             this.head = newNode
-        
+        }
         this.length++
         return this
+    }
+
+    // Getting a node at a specific index:
+    getNode(val){
+        if (val >= this.length || val <0) return null
+        let cnt =0;
+        let current = this.head
+        while (cnt !== val){
+            current = current.next
+            cnt++
+        }
+        return current
+    }
+
+    // Set a node at a specific position:
+    setNode(val,ind){
+        let nodePoint = this.getNode(ind);
+        if(nodePoint){
+            nodePoint.val = val;
+            return true
+        }
+        return false
+    }
+
+    insert(val,ind){
+        let newNode = new Node(val)
+        if(ind <0 || ind > this.length) return false
+        if(ind === this.length) this.push(val);
+        if(ind === 0 ) this.unshift(val)
+        else{
+            let getIndex = this.getNode(ind-1)
+            newNode.next = getIndex.next
+            getIndex.next = newNode
+            this.length++
+            return true
+        }
+        return false
     }
 }
 
